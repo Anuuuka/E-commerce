@@ -54,6 +54,7 @@ class DetailsState extends State<Details>{
           duration: Duration(seconds: 2),
         ));
   }
+  //String fPrice = null;
 
   @override
   Widget build(BuildContext context) {

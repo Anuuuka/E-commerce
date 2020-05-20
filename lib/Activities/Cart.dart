@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "package:scoped_model/scoped_model.dart";
 import '../ScopeManage.dart';
+import 'Home.dart';
 
 class Cart extends StatefulWidget{
   static final String route = "Cart-route";
@@ -13,6 +14,7 @@ class Cart extends StatefulWidget{
 }
 
 class CartState extends State<Cart>{
+  int actualPrice;
 
   Widget generateCart(Data d){
     return Padding(
@@ -70,6 +72,8 @@ class CartState extends State<Cart>{
                                   return InkResponse(
                                       onTap: (){
                                         model.removeCart(d);
+                                        model.fprice = model.fprice- d.price.toInt() ;
+                                        actualPrice = model.fprice;
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.only(right: 10.0),
@@ -118,10 +122,36 @@ class CartState extends State<Cart>{
               return ListView(
                 shrinkWrap: true,
                 children: model.cartListing.map((d)=>generateCart(d)).toList(),
+
               );
             },
           ),
+        ),
+      bottomNavigationBar : Builder(
+        builder: (context)=> Container(
+          color : Colors.white,
+          child: Row(
+            children: <Widget>[
+              Expanded(child: ListTile(
+                title: new Text("Total: "),
+                subtitle: new Text(actualPrice.toString(),
+                    style: TextStyle(color: Colors.black, fontSize: 17.0,fontWeight: FontWeight.w600)),
+              )),
+              Expanded(
+                  child: new MaterialButton(
+                    onPressed: () => _displaySnackBar(context),
+                    child: new Text("Buy now", style: TextStyle(color: Colors.white) ,),
+                    color: Colors.red,
+                  )
+              ),
+            ],
+          ),
         )
+      )
     );
   }
+}
+_displaySnackBar(BuildContext context) {
+  final snackBar = SnackBar(content: Text('Yay! you bought'));
+  Scaffold.of(context).showSnackBar(snackBar);
 }

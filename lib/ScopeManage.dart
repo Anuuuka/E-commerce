@@ -74,6 +74,7 @@ class AppModel extends Model {
   bool success = false;
   Database _db;
   Directory tempDir;
+  int fprice = 0;
   String tempPath;
   final LocalStorage storage = new LocalStorage('app_data');
 
@@ -307,6 +308,7 @@ class AppModel extends Model {
       cartMsg = "${dd.name.toUpperCase()} already added in Cart list.";
     } else {
       this.InsertInCart(dd);
+      fprice = fprice + dd.price.toInt();
       success = true;
       cartMsg = "${dd.name.toUpperCase()} successfully added in cart list.";
     }

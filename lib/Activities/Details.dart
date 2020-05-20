@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:scoped_model/scoped_model.dart";
-import "ScopeManage.dart";
+import '../ScopeManage.dart';
 import "dart:async";
 
 // ignore: must_be_immutable
@@ -147,7 +147,7 @@ class DetailsState extends State<Details>{
                                     print(widget.detail.id);
                                     model.addToFav(widget.detail);
                                     showSnak(widget.detail.fav,widget.detail.name);
-                                  },
+                                    },
                                   child: widget.detail.fav ? Icon(Icons.favorite,size: 20.0,color: Colors.red,) : Icon(Icons.favorite_border,size: 20.0,),
                                 );
                               },

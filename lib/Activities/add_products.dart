@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-
-
 class AddProduct extends StatefulWidget{
   static final String route = "Add-route";
   @override
@@ -13,10 +10,8 @@ class _AddProductState extends State<AddProduct>{
   Color grey = Colors.grey;
   final _formKey = GlobalKey<FormState>();
   TextEditingController productNameController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.indigo,
@@ -24,11 +19,9 @@ class _AddProductState extends State<AddProduct>{
           icon: Icon(
             Icons.close, color: black,
           ),
-          onPressed: () {
-            Navigator.pop(context);
+          onPressed: () {   Navigator.pop(context);
           },
         ),
-
         title: Text("Add product", style: TextStyle(color: black),),
       ),
       body: Form(
@@ -48,10 +41,8 @@ class _AddProductState extends State<AddProduct>{
                               padding: const EdgeInsets.fromLTRB(15.0, 50, 15.0, 50),
                               child: new Icon(Icons.add),
                             ),
-
                           )
                       )
-
                   ),
                   Expanded(
                       child: Padding(
@@ -64,12 +55,9 @@ class _AddProductState extends State<AddProduct>{
                               padding: const EdgeInsets.fromLTRB(15.0, 50, 15.0, 50),
                               child: new Icon(Icons.add),
                             ),
-
                           )
                       )
-
                   ),
-
                 ],
               ),
               TextFormField(
@@ -84,8 +72,7 @@ class _AddProductState extends State<AddProduct>{
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Enter color',
+                decoration: const InputDecoration(     hintText: 'Enter color',
                 ),
                 validator: (value) {
                   if (value.isEmpty) {
@@ -109,19 +96,14 @@ class _AddProductState extends State<AddProduct>{
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: RaisedButton(
                   onPressed: () {
-                    // Validate will return true if the form is valid, or false if
-                    // the form is invalid.
                     if (_formKey.currentState.validate()) {
-                      // Process data.
                     }
                   },
                   child: Text('Submit'),
                 ),
               ),
-
             ],
           )
-
       ),
     );
   }

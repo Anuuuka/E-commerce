@@ -1,28 +1,15 @@
-import 'package:e_com/add_products.dart';
-import "package:flutter/material.dart";
-import "package:scoped_model/scoped_model.dart";
-import "Cart.dart";
-import "ScopeManage.dart";
+import 'package:e_com/Activities/Details.dart';
+import 'package:flutter/material.dart';
+import 'package:e_com/ScopeManage.dart';
 import 'package:flutter_rating/flutter_rating.dart';
-import "Details.dart";
+import "package:scoped_model/scoped_model.dart";
 
-// ignore: must_be_immutable
-class Home extends StatefulWidget{
-  AppModel appModel;
-  static final String route = "Home-route";
-
-  Home({this.appModel});
-
+class Products extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return HomeState();
-  }
+  _ProductsState createState() => _ProductsState();
 }
 
-class HomeState extends State<Home>{
-
-
+class _ProductsState extends State<Products> {
   // ignore: non_constant_identifier_names
   Widget GridGenerate(List<Data> data,aspectRadtio){
     return Padding(
@@ -118,53 +105,14 @@ class HomeState extends State<Home>{
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 3;
     final double itemWidth = size.width / 2;
-
     // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("E-Commerce"),
-        elevation: 0.0,
-        actions: <Widget>[
-          Stack(
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.add_to_photos),
-                onPressed: () {
-                  // _select(choices[0]);
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddProduct()));
-                },
-              ),
-            ],
-          ),
-          Stack(
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.shopping_cart),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Cart()));
-                },
-              ),
-              Positioned(
-                child: ScopedModelDescendant<AppModel>(
-                  builder: (context,child,model){
-                    return Container(
-                      child: Text((model.cartListing.length > 0) ? model.cartListing.length.toString() : "",
-                        textAlign: TextAlign.center,style: TextStyle(color: Colors.orangeAccent,fontWeight: FontWeight.bold),),
-                    );
-                  },
-                ),
-              )
-            ],
-          )
-        ],
-      ),
-      body:ScopedModelDescendant<AppModel>(
-          builder: (context,child,model){
-            return
-              GridGenerate(model.itemListing,(itemWidth / itemHeight));
-          }
-      ),
+    return ScopedModelDescendant<AppModel>(
+      builder: (context,child,model){
+        return
+          GridGenerate(model.itemListing,(itemWidth / itemHeight));
+      },
     );
   }
+  
 
 }

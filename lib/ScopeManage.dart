@@ -69,6 +69,7 @@ class AppModel extends Model {
   List<Item> _items = [];
   List<Data> _data = [];
   List<Data> _cart = [];
+  List<Data> _fav = [];
   String cartMsg = "";
   bool success = false;
   Database _db;
@@ -103,31 +104,6 @@ class AppModel extends Model {
 
 
 
- /* createDB() async {
-
-    try {
-      Directory documentsDirectory = await getApplicationDocumentsDirectory();
-      String path = join(documentsDirectory.path, 'cart.db');
-
-      print(path);
-//      await storage.deleteItem("isFirst");
-//      await this.deleteDB();
-
-      var database =
-      await openDatabase(path, version: 1, onOpen: (Database db) {
-        this._db = db;
-        print("OPEN DBV");
-        this.createTable();
-      }, onCreate: (Database db, int version) async {
-        this._db = db;
-        print("DB Crated");
-      });
-    } catch (e) {
-      print("ERRR >>>");
-      print(e);
-      print("ggg");
-    }
-  }*/
   deleteDB() async {
 
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
@@ -239,7 +215,8 @@ class AppModel extends Model {
     await this._db.transaction((tx) async {
       try {
         var qry =
-            'INSERT INTO cart_list(shop_id,name, price, image,rating,fav) VALUES(${d.id},"${d.name}",${d.price}, "${d.image}",${d.rating},${d.fav ? 1 : 0})';
+            'INSERT INTO cart_list(shop_id,name, price, image,rating,fav) '
+            'VALUES(${d.id},"${d.name}",${d.price}, "${d.image}",${d.rating},${d.fav ? 1 : 0})';
         var _res = await tx.execute(qry);
         this.FetchCartList();
       } catch (e) {
@@ -298,6 +275,7 @@ class AppModel extends Model {
     this.UpdateFavItem(data);
     notifyListeners();
   }
+
 
   // Item List
   List<Data> get itemListing => _data;
